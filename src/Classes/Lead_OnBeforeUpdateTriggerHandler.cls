@@ -36,6 +36,7 @@ Public Class Lead_OnBeforeUpdateTriggerHandler{
         List<Lead> leadRecList = new List<Lead>();
         List<Lead> leadRequiredList = new List<Lead>();//IME-60
         List<Lead> qualifiedRushLeadList = new List<Lead>(); //IME 58
+        List<Lead> potentialRushLeadList = new List<Lead>();//IME-107
         
         Boolean flag;
          
@@ -238,6 +239,15 @@ Public Class Lead_OnBeforeUpdateTriggerHandler{
              if(newLead.Any_medical_reason_for_moving_quickly__c != null && newLead.Status == 'Qualified' && oldLeadMap.get(newLead.Id).Status != 'Qualified' && newLead.Any_medical_reason_for_moving_quickly__c.contains('Yes')) {
                  qualifiedRushLeadList.add(newLead);
              }
+             //IME-107
+             if(newLead.Any_medical_reason_for_moving_quickly__c != null && newLead.Any_medical_reason_for_moving_quickly__c.contains('Yes')){
+                 newLead.Rush__c = true;
+                 System.debug('IME 107>>>>');
+             } else if(newLead.Any_medical_reason_for_moving_quickly__c != null && (!newLead.Any_medical_reason_for_moving_quickly__c.contains('Yes')) && oldLeadMap.get(newLead.Id).Any_medical_reason_for_moving_quickly__c.contains('Yes')){
+                System.debug('Disable Rush and Create Rush Task');
+                newLead.Rush__c = false;
+                potentialRushLeadList.add(newLead);
+             }	
              //IME-77
              if(newLead.Sub_Status__c == 'Pending Part A' || newLead.Sub_Status__c == 'Pending Paper DV' || newLead.Status == 'Pending Diagnosis Verification'){
                  newLead.Pending_Diagnosis_Date__c = Date.today();
@@ -272,6 +282,10 @@ Public Class Lead_OnBeforeUpdateTriggerHandler{
         //IME 58
         if(qualifiedRushLeadList.size() > 0){
             Lead_OnBeforeUpdateTriggerHandlerHelper.createRushTask(qualifiedRushLeadList);
+        }
+        //IME-107
+        if(potentialRushLeadList.size() > 0){
+            Lead_OnBeforeUpdateTriggerHandlerHelper.createPotentialRushTask(potentialRushLeadList);
         }
     }
 }

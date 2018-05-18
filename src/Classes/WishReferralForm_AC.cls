@@ -88,7 +88,9 @@ currLead.Primary_Diagnosis__c = selectedDiagnosis;*/
              currLead.Any_medical_reason_for_moving_quickly__c = '<font color="Red">'+currLead.Any_medical_reason_for_moving_quickly__c +'</font>';
              
          }
-         
+         if(currLead.Any_medical_reason_for_moving_quickly__c != null){
+             currLead.Hidden_Potential_Rush__c = currLead.Any_medical_reason_for_moving_quickly__c;
+         }
          if(currLead.Has_this_child_ever_received_prior_wish__c == 'Yes')
          {
              currLead.Has_this_child_ever_received_prior_wish__c = '<font color="Red">'+currLead.Has_this_child_ever_received_prior_wish__c+'</font>';

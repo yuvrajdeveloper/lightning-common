@@ -221,6 +221,7 @@ as elegibility review.
                 }
             }
             for(Lead processLead : LeadList){
+                system.debug('@@@ processLead.Name @@@'+processLead);
                 case newcase = new case();
                 newCase.status = 'New'; //Modified as per IME 18 
                 newCase.origin = 'Email';
@@ -235,7 +236,8 @@ as elegibility review.
                 newCase.Lead__c = processLead.id;
                 newCase.AccountId = processLead.ChapterName__c;
                 newCase.ChapterName__c = processLead.ChapterName__c;
-                if(processLead.Is_We_Need_To_Expedite_The_Process__c == 'Yes') {
+                //IME-107 - Changed Is_We_Need_To_Expedite_The_Process__c to Any_medical_reason_for_moving_quickly__c
+                if(processLead.Any_medical_reason_for_moving_quickly__c == 'Yes') {
                     newCase.Rush__c = True;
                     newCase.Rush_Explanation__c = processLead.Please_Explain__c;
                     newCase.Rush_Timeframe__c = 'Select timeframe';
@@ -698,8 +700,6 @@ It will display error message if any duplicate wishchild or wish family or medic
             chapterName.add(chapter.Name);
         }        
         for(Lead processLead: leadList){   
-            System.debug(chapterName);
-            System.debug(processLead.Hidden_Chapter_Name__c);
             if(chapterName.contains(processLead.Hidden_Chapter_Name__c)){                
                 Task newRushTask = new Task(Description = 'New RUSH referral qualified',
                                             Priority = 'Normal', 
@@ -714,5 +714,23 @@ It will display error message if any duplicate wishchild or wish family or medic
         if(newTaskList.size() > 0){
             insert newTaskList;
         }        
+    }
+    
+    //IME-107
+    public static void createPotentialRushTask(List<Lead> leadList){
+        List<Task> newTaskList = new List<Task>();
+        for(Lead processLead: leadList){ 
+            System.debug('IME 107 in for loop');
+            Task newRushTask = new Task(Priority = 'Normal',
+                                        Status = 'Not Started',
+                                        Subject = 'Rush has been changed from Yes to No/ Not sure, reach out to family if necessary', 
+                                        OwnerId =  processLead.OwnerId,
+                                        ActivityDate = System.today()+3,
+                                        WhoId = processLead.Id);
+            newTaskList.add(newRushTask);
+        }     
+        if(newTaskList.size() > 0){
+            insert newTaskList;
+        }
     }
 }

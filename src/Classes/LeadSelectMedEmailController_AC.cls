@@ -73,7 +73,8 @@ public class LeadSelectMedEmailController_AC{
         leadRec[0].Part_A_Received__c = null;
         leadRec[0].Part_A_Sent__c = Date.today();
         leadRec[0].Why_do_you_feel_would_be_eligible_Wish__c = '';
-        leadRec[0].Is_We_Need_To_Expedite_The_Process__c = '';
+        //leadRec[0].Is_We_Need_To_Expedite_The_Process__c = '';//commented out for IME-107
+        leadRec[0].Any_medical_reason_for_moving_quickly__c = leadRec[0].Hidden_Potential_Rush__c;//IME-107
         leadRec[0].Please_Explain__c = '';
         leadRec[0].Will_Child_s_Condition_Deteriorate__c = '';
         leadRec[0].Please_Explain_Deteriorate__c = '';

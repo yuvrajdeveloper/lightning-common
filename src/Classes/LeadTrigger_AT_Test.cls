@@ -423,7 +423,7 @@ medical professional contact merged with existing contact*/
         newLead.Medical_Questions__c = 'YES Test Diagnosis';
         newLead.Dup_Check__c = 'Block Lead Dup';
         newLead.unique_wish_identifier__c = '123455';
-        newLead.Is_We_Need_To_Expedite_The_Process__c = 'Yes';
+        newLead.Any_medical_reason_for_moving_quickly__c = 'Yes';
         Test.startTest();
         update newLead ;
         Test.stopTest();

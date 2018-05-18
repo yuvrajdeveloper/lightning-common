@@ -85,8 +85,9 @@ public class DiagnosisVerification_AC {
             wishChildWrapperIns.healthCareWork = currLead.I_m_Part_of_The_Treating_HealthCare_Team__c;
             wishChildWrapperIns.vegetativeState = currLead.Is_in_a_Comatose_Vegetative_State__c;       
             wishChildWrapperIns.explainDeteriorate = currLead.Please_Explain_Deteriorate__c;
-            wishChildWrapperIns.expediteTheProcess = currLead.Is_We_Need_To_Expedite_The_Process__c;
-            wishChildWrapperIns.conditioDeteriorate = currLead.Will_Child_s_Condition_Deteriorate__c;
+            //wishChildWrapperIns.expediteTheProcess = currLead.Is_We_Need_To_Expedite_The_Process__c;//Commented as per IME-107
+            wishChildWrapperIns.expediteTheProcess = currLead.Any_medical_reason_for_moving_quickly__c;//Added as per IME-107
+        	wishChildWrapperIns.conditioDeteriorate = currLead.Will_Child_s_Condition_Deteriorate__c;
             wishChildWrapperIns.wishChildEligibilityNotes = currLead.Why_do_you_feel_would_be_eligible_Wish__c;
             wishChildWrapperIns.plzExplain = currLead.Please_Explain__c;
             wishChildWrapperIns.bestPhyFname = currLead.Best_Contact_for_Physician_First_Name__c;
@@ -755,7 +756,8 @@ showAddAnotherDiagnosisBtn = true;
             currLead.I_m_Part_of_The_Treating_HealthCare_Team__c = wishChildWrapperIns.healthCareWork;
             currLead.Is_in_a_Comatose_Vegetative_State__c = wishChildWrapperIns.vegetativeState;
             currLead.RFI_Form_Info_Hidden__c = wishStatus;
-            currLead.Is_We_Need_To_Expedite_The_Process__c = wishChildWrapperIns.expediteTheProcess;
+            //currLead.Is_We_Need_To_Expedite_The_Process__c = wishChildWrapperIns.expediteTheProcess;//Commented as per IME-107
+            currLead.Any_medical_reason_for_moving_quickly__c = wishChildWrapperIns.expediteTheProcess;//Added as per IME-107
             currLead.Please_Explain_Deteriorate__c = wishChildWrapperIns.explainDeteriorate;
             currLead.Please_Explain__c = wishChildWrapperIns.plzExplain;
             currLead.Will_Child_s_Condition_Deteriorate__c = wishChildWrapperIns.conditioDeteriorate;
@@ -1031,7 +1033,7 @@ showAddAnotherDiagnosisBtn = true;
             LstLog.add('Medprof RecogToPracice: '+currLead.I_am_Recognized_To_Practice_As_a__c); 
             LstLog.add('Medprof PartofHealthCareTeam: '+currLead.I_m_Part_of_The_Treating_HealthCare_Team__c);
             LstLog.add('wishStatus: '+currLead.RFI_Form_Info_Hidden__c);
-            LstLog.add('Need to Expediate?: '+currLead.Is_We_Need_To_Expedite_The_Process__c);
+            LstLog.add('Need to Expediate?: '+currLead.Any_medical_reason_for_moving_quickly__c);
             LstLog.add('PlzExplainDetoriate: '+currLead.Please_Explain_Deteriorate__c);
             LstLog.add('Please Explain: '+currLead.Please_Explain__c);
             LstLog.add('why feel Eligible: '+currLead.Why_do_you_feel_would_be_eligible_Wish__c);
@@ -1064,7 +1066,7 @@ showAddAnotherDiagnosisBtn = true;
             LstLog.add('Angina: '+currLead.Angina__c);
             LstLog.add('Ventilator: '+currLead.Ventilator__c);
             LstLog.add('lung disease: '+currLead.lung_disease__c);
-            LstLog.add('Travel Restriction : '+currLead.Travel_Restriction__c);
+            LstLog.add('Current Condition: '+currLead.Travel_Restriction__c);
             LstLog.add('Best contact for phy FN: '+currLead.Best_Contact_for_Physician_First_Name__c);
             LstLog.add('Best contact for phy LN: '+currLead.Best_Contact_for_Physician_Last_Name__c);
             LstLog.add('Best contact for email: '+currLead.Best_contact_for_Physician_Email__c);
